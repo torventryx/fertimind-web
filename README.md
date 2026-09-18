@@ -62,3 +62,29 @@ Fuente única de verdad: `users/{uid}.paid_access`.
 - Web (Stripe) → `/api/stripe/webhook` y `/api/stripe/verify` lo conceden.
 
 Una compra en cualquier superficie desbloquea en ambas.
+
+## Stripe (production, live)
+
+- Cuenta `acct_1S8jlF3cnTSQSxEm` · producto `prod_VHebAukuBcLh1Ty`
+  · price `price_1UH5IL3cnTSQSxEmT9Pjtn72` (7,99 € **pago único**, EUR).
+- Promotion code `FERTI499` (−3,00 € → 4,99 €, 500 canjes).
+- Webhook `https://fertimind.es/api/stripe/webhook` →
+  `checkout.session.completed` (activa `paid_access`).
+
+### Reglas de seguridad (no negociables)
+
+1. La `sk_live_` y el `whsec_` viven SOLO como **variables de runtime de
+   Cloud Run** (PATCH del template). NUNCA en `.env`: Next las hornea
+   dentro de la imagen en el build.
+2. El archivo `.stripe-runtime.json` (chmod 600) es la copia local para
+   operar; está gitignored.
+3. Ver estado sin exponer valores:
+   `node scripts/configure-stripe.mjs` (idempotente: valida cuenta/price,
+   recrea webhook si falta, reutiliza FERTI499).
+
+### Rotación de la sk
+
+1. Dashboard → API keys → "Roll key" (invalida la anterior).
+2. Actualizar `sk` en `.stripe-runtime.json`.
+3. `node scripts/configure-stripe.mjs` (webhook ya existe → solo valida).
+4. Re-PATCHear el env de Cloud Run (ver historial de comandos del repo).

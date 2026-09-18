@@ -49,6 +49,7 @@ export async function POST(req: NextRequest) {
       mode: 'payment',
       line_items: [lineItem],
       locale: locale === 'en' ? 'en' : 'es',
+      allow_promotion_codes: true, // p.ej. FERTI499 (7,99 → 4,99 €)
       ...(email ? { customer_email: email } : {}),
       client_reference_id: decoded.uid,
       metadata: { uid: decoded.uid, source: 'web' },
