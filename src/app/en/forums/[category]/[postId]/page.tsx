@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import { pageMetadata, breadcrumbJsonLd, discussionJsonLd } from '@/lib/seo';
-import { SITE, t } from '@/lib/i18n';
+import { SITE } from '@/lib/i18n';
 import { forumCategoriesById } from '@/data/taxonomy';
 import { threadWithComments, localizedText } from '@/lib/content';
 import PregnancyGate from '@/components/PregnancyGate';
@@ -140,9 +140,6 @@ export default async function ThreadEn({ params }: Props) {
         })}
       />
 
-      <p className="mt-8 rounded-2xl bg-lilacSoft/60 p-4 text-xs leading-5 text-ink/55">
-        {t('forum_new_thread_app', 'en')}
-      </p>
     </article>
   );
 }

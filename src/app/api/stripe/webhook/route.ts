@@ -33,18 +33,33 @@ export async function POST(req: NextRequest) {
     const session = event.data.object as Stripe.Checkout.Session;
     const uid = session.client_reference_id || session.metadata?.uid;
     if (uid && session.payment_status === 'paid') {
-      await db()
-        .collection('users')
-        .doc(uid)
-        .set(
-          {
-            paid_access: true,
-            paid_access_source: 'stripe',
-            paid_access_updated_at: new Date().toISOString(),
-            stripe_customer_id: session.customer || null,
-          },
-          { merge: true },
-        );
+      if (session.metadata?.type === 'donation') {
+        // Apoyo económico: marca supporter, NUNCA paid_access.
+        await db()
+          .collection('users')
+          .doc(uid)
+          .set(
+            {
+              supporter: true,
+              supporter_since: new Date().toISOString(),
+              stripe_customer_id: session.customer || null,
+            },
+            { merge: true },
+          );
+      } else {
+        await db()
+          .collection('users')
+          .doc(uid)
+          .set(
+            {
+              paid_access: true,
+              paid_access_source: 'stripe',
+              paid_access_updated_at: new Date().toISOString(),
+              stripe_customer_id: session.customer || null,
+            },
+            { merge: true },
+          );
+      }
     }
   }
 

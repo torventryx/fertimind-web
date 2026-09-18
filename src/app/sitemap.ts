@@ -9,10 +9,10 @@ export const revalidate = 3600;
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const base = SITE.url;
   const staticEs = [
-    '', '/foros', '/cursos', '/clinicas', '/contacto',
+    '', '/foros', '/cursos', '/clinicas', '/contacto', '/apoyar',
     '/legal/privacidad', '/legal/terminos', '/legal/cookies',
   ].map((p) => ({ url: `${base}${p || '/'}`, changeFrequency: 'daily' as const, priority: p === '' ? 1 : 0.8 }));
-  const staticEn = ['', '/forums', '/courses', '/clinics'].map((p) => ({
+  const staticEn = ['', '/forums', '/courses', '/clinics', '/support'].map((p) => ({
     url: `${base}/en${p || ''}`,
     changeFrequency: 'daily' as const,
     priority: p === '' ? 0.9 : 0.6,

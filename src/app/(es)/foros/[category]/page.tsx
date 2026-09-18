@@ -6,6 +6,7 @@ import { SITE, t } from '@/lib/i18n';
 import { forumCategoriesById } from '@/data/taxonomy';
 import { threadsByCategory } from '@/lib/content';
 import PostTeaser from '@/components/PostTeaser';
+import NewThreadNote from '@/components/NewThreadNote';
 import JsonLd from '@/components/JsonLd';
 
 export const revalidate = 300;
@@ -96,12 +97,7 @@ export default async function CategoryPage({ params }: Props) {
         ))}
       </div>
 
-      <div className="mt-10 rounded-2xl border border-dashed border-plum/20 bg-white/60 p-5 text-sm text-ink/60">
-        {t('forum_new_thread_app', 'es')}{' '}
-        <Link href="/login" className="font-semibold text-coralAction">
-          {t('nav_login', 'es')}
-        </Link>
-      </div>
+      <NewThreadNote locale="es" />
     </div>
   );
 }

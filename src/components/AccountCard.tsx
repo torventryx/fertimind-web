@@ -20,6 +20,7 @@ interface Profile {
   paidUpdatedAt?: string | null;
   countryName?: string | null;
   memberNumber?: string | null;
+  supporter?: boolean | null;
 }
 
 function fmtDate(iso: string | null, locale: Locale) {
@@ -65,6 +66,7 @@ export default function AccountCard({ locale }: { locale: Locale }) {
           paidUpdatedAt: d['paid_access_updated_at']?.toDate?.().toISOString() ?? null,
           countryName: country?.name ?? null,
           memberNumber: u.uid.slice(0, 8).toUpperCase(),
+          supporter: d['supporter'] === true ? true : null,
         });
       } else {
         setProfile(null);
@@ -144,6 +146,19 @@ export default function AccountCard({ locale }: { locale: Locale }) {
         <p className="text-xs uppercase tracking-wide text-ink/40">
           {es ? 'Acceso' : 'Access'}
         </p>
+        {profile.supporter && (
+          <div className="mt-2 rounded-2xl bg-goldSoft p-4">
+            <p className="font-semibold text-gold">
+              🤍 {es ? 'Apoyadora de FertiMind' : 'FertiMind supporter'}
+            </p>
+            <p className="mt-1 text-xs leading-5 text-ink/60">
+              {es
+                ? 'Gracias por sostener este proyecto para un sector sin visibilidad.'
+                : 'Thank you for sustaining this project for an invisible sector.'}
+            </p>
+          </div>
+        )}
+        <div className={profile.supporter ? 'mt-3' : 'mt-2'}>
         {profile.paidAccess === true ? (
           <div className="mt-2 rounded-2xl bg-sageSoft p-4">
             <p className="font-semibold text-sage">
@@ -168,7 +183,16 @@ export default function AccountCard({ locale }: { locale: Locale }) {
             </Link>
           </div>
         ) : (
-          <p className="mt-2 text-sm text-ink/60">{t('pay_stripe_soon', locale)}</p>
+          <p className="text-sm text-ink/60">{t('pay_stripe_soon', locale)}</p>
+        )}
+        </div>
+        {profile.paidAccess !== true && (
+          <p className="mt-3 text-xs text-ink/45">
+            {es ? '¿Solo quieres apoyar el proyecto? ' : 'Just want to support the project? '}
+            <Link href={`${base}${es ? '/apoyar' : '/support'}`} className="font-semibold text-gold hover:underline">
+              🤍 {es ? 'Apoya FertiMind' : 'Support FertiMind'}
+            </Link>
+          </p>
         )}
       </div>
 

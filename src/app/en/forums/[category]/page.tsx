@@ -5,6 +5,7 @@ import { pageMetadata } from '@/lib/seo';
 import { forumCategoriesById } from '@/data/taxonomy';
 import { threadsByCategory } from '@/lib/content';
 import PostTeaser from '@/components/PostTeaser';
+import NewThreadNote from '@/components/NewThreadNote';
 
 export const revalidate = 300;
 
@@ -62,6 +63,8 @@ export default async function CategoryEn({ params }: Props) {
             commentCount={th.commentCount} pinned={th.isWeeklyThread} locked={cat.sensitive === true} />
         ))}
       </div>
+
+      <NewThreadNote locale="en" />
     </div>
   );
 }

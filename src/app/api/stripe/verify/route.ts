@@ -23,6 +23,20 @@ export async function GET(req: NextRequest) {
     const session = await stripe.checkout.sessions.retrieve(sessionId);
     const uid = session.client_reference_id || session.metadata?.uid;
     if (session.payment_status === 'paid' && uid) {
+      // Las donaciones NO conceden paid_access (solo supporter).
+      if (session.metadata?.type === 'donation') {
+        await db()
+          .collection('users')
+          .doc(uid)
+          .set(
+            {
+              supporter: true,
+              supporter_since: new Date().toISOString(),
+            },
+            { merge: true },
+          );
+        return NextResponse.json({ paid: true, donation: true });
+      }
       await db()
         .collection('users')
         .doc(uid)

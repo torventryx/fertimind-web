@@ -20,6 +20,7 @@ export default function SiteFooter({ locale }: { locale: Locale }) {
             <li><Link href={`${base}${locale === 'en' ? '/forums' : '/foros'}`}>{t('nav_forum', locale)}</Link></li>
             <li><Link href={`${base}${locale === 'en' ? '/courses' : '/cursos'}`}>{t('nav_courses', locale)}</Link></li>
             <li><Link href={`${base}${locale === 'en' ? '/clinics' : '/clinicas'}`}>{t('nav_clinics', locale)}</Link></li>
+            <li><Link href={`${base}${locale === 'en' ? '/support' : '/apoyar'}`} className="font-semibold text-gold">🤍 {locale === 'en' ? 'Support the project' : 'Apoya el proyecto'}</Link></li>
           </ul>
         </div>
         <div className="text-sm">
