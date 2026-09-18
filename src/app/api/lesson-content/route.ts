@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getAuth } from 'firebase-admin/auth';
-import { db } from '@/lib/admin';
+import { db, admin } from '@/lib/admin';
 
 export const runtime = 'nodejs';
 
@@ -16,7 +16,8 @@ export async function POST(req: NextRequest) {
     const token = authHeader.startsWith('Bearer ') ? authHeader.slice(7) : null;
     if (!token) return NextResponse.json({ error: 'unauthenticated' }, { status: 401 });
 
-    const decoded = await getAuth().verifyIdToken(token);
+    // App explícita: evita el crash en frío de la app por defecto.
+    const decoded = await getAuth(admin()).verifyIdToken(token);
     const { courseId, lessonId } = await req.json();
     if (typeof courseId !== 'string' || typeof lessonId !== 'string') {
       return NextResponse.json({ error: 'invalid-argument' }, { status: 400 });

@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getAuth } from 'firebase-admin/auth';
 import Stripe from 'stripe';
-import { db } from '@/lib/admin';
+import { db, admin } from '@/lib/admin';
 import { SITE } from '@/lib/i18n';
 
 export const runtime = 'nodejs';
@@ -23,7 +23,9 @@ export async function POST(req: NextRequest) {
     const authHeader = req.headers.get('authorization') || '';
     const token = authHeader.startsWith('Bearer ') ? authHeader.slice(7) : null;
     if (!token) return NextResponse.json({ error: 'unauthenticated' }, { status: 401 });
-    const decoded = await getAuth().verifyIdToken(token);
+    // App explícita: getAuth() a secas exige que la app por defecto ya
+    // exista y revienta en frío ("default Firebase app does not exist").
+    const decoded = await getAuth(admin()).verifyIdToken(token);
 
     const { locale = 'es' } = await req.json().catch(() => ({}) as { locale?: string });
     const stripe = new Stripe(key);
