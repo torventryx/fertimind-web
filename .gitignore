@@ -9,3 +9,4 @@ out/
 img-candidates/
 tsconfig.tsbuildinfo
 .stripe-runtime.json
+scripts/.deploy-run-update.tmp.cjs
