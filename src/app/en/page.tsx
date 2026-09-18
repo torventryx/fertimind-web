@@ -298,6 +298,7 @@ export default async function HomeEn() {
                 title={th.title}
                 excerpt={th.excerpt}
                 authorName={th.authorName}
+                authorUsername={th.authorUsername}
                 date={th.createdAt?.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' }) || ''}
                 commentCount={th.commentCount}
                 pinned={th.isWeeklyThread}

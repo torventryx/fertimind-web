@@ -7,6 +7,7 @@ export default function PostTeaser({
   title,
   excerpt,
   authorName,
+  authorUsername,
   date,
   commentCount,
   pinned,
@@ -17,7 +18,9 @@ export default function PostTeaser({
   title: string;
   /** En categorías sensibles no se muestra extracto (privacidad). */
   excerpt?: string;
+  /** Solo primer nombre o @username — nunca apellidos. */
   authorName: string;
+  authorUsername?: string | null;
   date: string;
   commentCount: number;
   pinned?: boolean;
@@ -49,7 +52,7 @@ export default function PostTeaser({
         </p>
       ) : null}
       <p className="mt-3 text-xs text-ink/50">
-        {authorName} · {date} · 💬 {commentCount}
+        {authorUsername ? `@${authorUsername}` : authorName} · {date} · 💬 {commentCount}
       </p>
     </Link>
   );

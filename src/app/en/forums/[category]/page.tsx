@@ -57,7 +57,7 @@ export default async function CategoryEn({ params }: Props) {
         {threads.length === 0 && <p className="rounded-2xl bg-lilacSoft p-6 text-center text-sm text-ink/60">No public threads here yet. Be the first!</p>}
         {threads.map((th) => (
           <PostTeaser key={th.id} locale="en" href={`/en/forums/${th.categoryId}/${th.id}`}
-            title={th.title} excerpt={cat.sensitive ? undefined : th.excerpt} authorName={th.authorName}
+            title={th.title} excerpt={cat.sensitive ? undefined : th.excerpt} authorName={th.authorName} authorUsername={th.authorUsername}
             date={th.createdAt?.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' }) || ''}
             commentCount={th.commentCount} pinned={th.isWeeklyThread} locked={cat.sensitive === true} />
         ))}

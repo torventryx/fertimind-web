@@ -63,13 +63,23 @@ function excerptOf(data: Record<string, unknown>): string {
   return flat.length > 180 ? `${flat.slice(0, 177)}…` : flat;
 }
 
+/**
+ * Nombre PÚBLICO de una autora: si no hay @username se muestra solo el
+ * primer nombre — nunca los apellidos (privacidad de la comunidad).
+ * author_name completo se guarda en Firestore, aquí se recorta al mostrar.
+ */
+function publicAuthorName(name: unknown, username: unknown): string {
+  const first = String(name ?? '').trim().split(/\s+/)[0];
+  return first || 'Usuaria';
+}
+
 function summaryFrom(id: string, data: Record<string, unknown>): ThreadSummary {
   return {
     id,
     categoryId: (data['category_id'] as string) || 'general',
     title: titleOf(data),
     excerpt: excerptOf(data),
-    authorName: (data['author_name'] as string) || 'Usuaria',
+    authorName: publicAuthorName(data['author_name'], data['author_username']),
     authorUsername: (data['author_username'] as string) || null,
     createdAt: postDate(data['created_at']),
     commentCount: Number(data['comment_count'] ?? 0),
@@ -133,7 +143,7 @@ export async function threadWithComments(
     return {
       id: d.id,
       content: (c['content_text'] as string) || '',
-      authorName: (c['author_name'] as string) || 'Usuaria',
+      authorName: publicAuthorName(c['author_name'], c['author_username']),
       authorUsername: (c['author_username'] as string) || null,
       createdAt: postDate(c['created_at']),
       originalLanguage: (c['original_language'] as string) || null,

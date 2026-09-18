@@ -318,6 +318,7 @@ export default async function HomePage() {
                 title={th.title}
                 excerpt={th.excerpt}
                 authorName={th.authorName}
+                authorUsername={th.authorUsername}
                 date={fmtDate(th.createdAt)}
                 commentCount={th.commentCount}
                 pinned={th.isWeeklyThread}

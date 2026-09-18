@@ -86,10 +86,14 @@ export default function CommentSection({
         const live: SerializedComment[] = snap.docs
           .map((d) => {
             const c = d.data();
+            // Privacidad: sin @username se muestra solo el primer nombre.
+            const firstWord = String(c['author_name'] ?? '')
+              .trim()
+              .split(/\s+/)[0];
             return {
               id: d.id,
               content: (c['content_text'] as string) || '',
-              authorName: (c['author_name'] as string) || 'Usuaria',
+              authorName: firstWord || 'Usuaria',
               authorUsername: (c['author_username'] as string) || null,
               createdAt: c['created_at']?.toDate?.().toISOString() ?? null,
             };

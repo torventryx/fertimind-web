@@ -87,6 +87,7 @@ export default async function CategoryPage({ params }: Props) {
             title={th.title}
             excerpt={cat.sensitive ? undefined : th.excerpt}
             authorName={th.authorName}
+            authorUsername={th.authorUsername}
             date={fmtDate(th.createdAt)}
             commentCount={th.commentCount}
             pinned={th.isWeeklyThread}
