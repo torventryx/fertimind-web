@@ -73,7 +73,11 @@ export default async function HomeEn() {
         <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 py-14 sm:py-20 lg:grid-cols-[1.05fr_0.95fr]">
           <div>
             <span className="inline-flex items-center gap-2 rounded-full bg-sageSoft px-3.5 py-1.5 text-xs font-semibold text-sage">
-              ✦ Free forever · no ads · es / en
+              ✦ Free forever
+              <a href="#faq" title="What exactly is free?" className="text-sage/80 hover:text-coralAction">
+                *
+              </a>{' '}
+              · no ads · es / en
             </span>
             <h1 className="mt-5 text-4xl font-extrabold leading-[1.08] text-plum sm:text-5xl">
               The fertility path is a journey.{' '}
@@ -97,6 +101,14 @@ export default async function HomeEn() {
                 Or explore the community from your browser →
               </Link>
             </div>
+            <p className="mt-3 text-xs leading-5 text-ink/45">
+              *<strong className="font-semibold text-ink/60"> The community and forums are free
+              forever.</strong> Full courses unlock with a{' '}
+              <Link href="/en/courses" className="underline decoration-coral/50 hover:text-coralAction">
+                one-time €7.99 payment
+              </Link>{' '}
+              (no subscription) — <a href="#faq" className="underline hover:text-coralAction">details</a>.
+            </p>
           </div>
           <div className="relative">
             <div className="overflow-hidden rounded-[2rem] fm-shadow-lift">

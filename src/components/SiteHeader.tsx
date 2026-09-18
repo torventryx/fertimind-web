@@ -10,11 +10,16 @@ export default function SiteHeader({ locale }: { locale: Locale }) {
   const [user, setUser] = useState<User | null | 'loading'>('loading');
   useEffect(() => onAuthStateChanged(auth, (u) => setUser(u)), []);
 
-  const links: { href: string; label: string }[] = [
+  const links: { href: string; label: string; accent?: boolean }[] = [
     { href: locale === 'en' ? '/en/forums' : '/foros', label: t('nav_forum', locale) },
     { href: locale === 'en' ? '/en/courses' : '/cursos', label: t('nav_courses', locale) },
     { href: locale === 'en' ? '/en/clinics' : '/clinicas', label: t('nav_clinics', locale) },
     { href: locale === 'en' ? '/en#download' : '/#descargar', label: t('nav_download', locale) },
+    {
+      href: locale === 'en' ? '/en/support' : '/apoyar',
+      label: locale === 'en' ? '🤍 Apoyar' : '🤍 Apoyar',
+      accent: true,
+    },
   ];
   const other = locale === 'en' ? { href: '/', label: 'ES' } : { href: '/en', label: 'EN' };
 
@@ -28,7 +33,15 @@ export default function SiteHeader({ locale }: { locale: Locale }) {
         </Link>
         <nav className="hidden items-center gap-6 text-[15px] font-medium text-ink/80 md:flex">
           {links.map((l) => (
-            <Link key={l.href} href={l.href} className="transition hover:text-coralAction">
+            <Link
+              key={l.href}
+              href={l.href}
+              className={
+                l.accent
+                  ? 'font-semibold text-gold transition hover:text-coralAction'
+                  : 'transition hover:text-coralAction'
+              }
+            >
               {l.label}
             </Link>
           ))}
@@ -60,10 +73,10 @@ export default function SiteHeader({ locale }: { locale: Locale }) {
           )}
         </div>
       </div>
-      <nav className="flex items-center justify-around border-t border-plum/10 px-4 py-2 text-sm font-medium text-ink/80 md:hidden">
+      <nav className="flex items-center justify-around gap-1 border-t border-plum/10 px-2 py-2 text-[13px] font-medium text-ink/80 md:hidden">
         {links.map((l) => (
-          <Link key={l.href} href={l.href}>
-            {l.label}
+          <Link key={l.href} href={l.href} className={l.accent ? 'font-semibold text-gold' : ''}>
+            {l.accent ? '🤍 Apoyar' : l.label}
           </Link>
         ))}
       </nav>

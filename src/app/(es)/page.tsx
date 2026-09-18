@@ -80,7 +80,11 @@ export default async function HomePage() {
         <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 py-14 sm:py-20 lg:grid-cols-[1.05fr_0.95fr]">
           <div>
             <span className="inline-flex items-center gap-2 rounded-full bg-sageSoft px-3.5 py-1.5 text-xs font-semibold text-sage">
-              ✦ {t('home_free_badge', 'es')} · sin anuncios · es / en
+              ✦ {t('home_free_badge', 'es')}
+              <a href="#faq" title="¿Qué es gratis exactamente?" className="text-sage/80 hover:text-coralAction">
+                *
+              </a>{' '}
+              · sin anuncios · es / en
             </span>
             <h1 className="mt-5 text-4xl font-extrabold leading-[1.08] text-plum sm:text-5xl">
               El camino de la fertilidad es un viaje.{' '}
@@ -110,6 +114,14 @@ export default async function HomePage() {
                 O explora la comunidad desde el navegador →
               </Link>
             </div>
+            <p className="mt-3 text-xs leading-5 text-ink/45">
+              *<strong className="font-semibold text-ink/60"> La comunidad y los foros son gratis
+              para siempre.</strong> Los cursos completos se desbloquean con un{' '}
+              <Link href="/cursos" className="underline decoration-coral/50 hover:text-coralAction">
+                pago único de 7,99 €
+              </Link>{' '}
+              (sin suscripción) — <a href="#faq" className="underline hover:text-coralAction">más detalles</a>.
+            </p>
           </div>
           <div className="relative">
             <div className="overflow-hidden rounded-[2rem] fm-shadow-lift">
