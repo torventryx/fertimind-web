@@ -160,7 +160,7 @@ export default async function HomePage() {
           <div className="grid content-start gap-4 sm:grid-cols-2">
             {[
               { n: '16', l: 'foros por etapa y tratamiento' },
-              { n: '100 %', l: 'conversación humana: el contenido generado por IA está archivado' },
+              { n: '7,99 €', l: 'pago único por todos los cursos: sin suscripción, tuyos para siempre' },
               { n: '5', l: 'cursos con referencias científicas' },
               { n: '2', l: 'idiomas: español e inglés' },
             ].map((s) => (

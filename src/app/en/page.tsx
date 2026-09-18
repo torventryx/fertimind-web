@@ -147,7 +147,7 @@ export default async function HomeEn() {
           <div className="grid content-start gap-4 sm:grid-cols-2">
             {[
               { n: '16', l: 'forums by stage and treatment' },
-              { n: '100 %', l: 'human conversation: AI-generated content is archived' },
+              { n: '€7.99', l: 'one-time payment for every course: no subscription, yours forever' },
               { n: '5', l: 'courses with scientific references' },
               { n: '2', l: 'languages: Spanish and English' },
             ].map((s) => (
