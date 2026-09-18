@@ -6,3 +6,5 @@ out/
 .firebaserc.local
 *.log
 .DS_Store
+img-candidates/
+tsconfig.tsbuildinfo

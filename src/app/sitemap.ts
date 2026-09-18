@@ -20,14 +20,20 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const [threads, courses] = await Promise.all([allPublicThreadIds(), listCourses()]);
 
-  const categoryUrls = forumCategories.flatMap((c) => [
-    { url: `${base}/foros/${c.id}`, changeFrequency: 'daily' as const, priority: 0.7 },
-    { url: `${base}/en/forums/${c.id}`, changeFrequency: 'daily' as const, priority: 0.4 },
-  ]);
+  // Categorías sensibles (resultados, pérdidas, positivos…) fuera del sitemap:
+  // no se indexan; su contenido solo se sirve con sesión vía /api/thread.
+  const categoryUrls = forumCategories
+    .filter((c) => !c.sensitive)
+    .flatMap((c) => [
+      { url: `${base}/foros/${c.id}`, changeFrequency: 'daily' as const, priority: 0.7 },
+      { url: `${base}/en/forums/${c.id}`, changeFrequency: 'daily' as const, priority: 0.4 },
+    ]);
 
-  // Anuncios de embarazo excluidos (contenido sensible)
+  const sensitiveIds = new Set(forumCategories.filter((c) => c.sensitive).map((c) => c.id));
+
+  // Anuncios de embarazo y categorías sensibles excluidos (privacidad)
   const threadUrls = threads
-    .filter((t) => !t.isPregnancyAnnouncement)
+    .filter((t) => !t.isPregnancyAnnouncement && !sensitiveIds.has(t.categoryId))
     .flatMap((t) => [
       { url: `${base}/foros/${t.categoryId}/${t.id}`, lastModified: t.createdAt ?? undefined, changeFrequency: 'weekly' as const, priority: 0.6 },
     ]);

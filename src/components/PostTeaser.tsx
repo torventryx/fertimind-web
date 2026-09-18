@@ -10,15 +10,18 @@ export default function PostTeaser({
   date,
   commentCount,
   pinned,
+  locked,
 }: {
   locale: Locale;
   href: string;
   title: string;
-  excerpt: string;
+  /** En categorías sensibles no se muestra extracto (privacidad). */
+  excerpt?: string;
   authorName: string;
   date: string;
   commentCount: number;
   pinned?: boolean;
+  locked?: boolean;
 }) {
   return (
     <Link
@@ -30,8 +33,21 @@ export default function PostTeaser({
           {locale === 'en' ? 'Weekly thread' : 'Hilo de la semana'}
         </span>
       )}
+      {locked && (
+        <span className="mb-2 ml-1 inline-block rounded-full bg-goldSoft px-2.5 py-0.5 text-[11px] font-semibold text-gold">
+          🔒 {locale === 'en' ? 'Members only' : 'Solo miembros'}
+        </span>
+      )}
       <h3 className="text-[17px] font-semibold leading-snug text-plum">{title}</h3>
-      <p className="mt-1.5 line-clamp-2 text-sm text-ink/70">{excerpt}</p>
+      {excerpt ? (
+        <p className="mt-1.5 line-clamp-2 text-sm text-ink/70">{excerpt}</p>
+      ) : locked ? (
+        <p className="mt-1.5 text-sm italic text-ink/45">
+          {locale === 'en'
+            ? 'The content of this thread is visible to signed-in members only.'
+            : 'El contenido de este hilo solo es visible para usuarias con sesión iniciada.'}
+        </p>
+      ) : null}
       <p className="mt-3 text-xs text-ink/50">
         {authorName} · {date} · 💬 {commentCount}
       </p>

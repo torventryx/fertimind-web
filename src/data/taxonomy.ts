@@ -12,6 +12,12 @@ export interface ForumCategory {
   emoji: string;
   /** Categorías donde puede haber anuncios de embarazo (velo opt-in). */
   mayContainPregnancyNews?: boolean;
+  /**
+   * Categorías íntimas (resultados, pérdidas, positivos…): en la web solo se
+   * leen con sesión iniciada, no se prerenderizan ni se indexan. El resto del
+   * foro es público para SEO (benchmark del sector: Reddit/Mumsnet públicos).
+   */
+  sensitive?: boolean;
 }
 
 export interface ForumSection {
@@ -36,10 +42,10 @@ export const forumSections: ForumSection[] = [
         descriptionEn: 'The longest days: symptoms, anxiety and support', emoji: '⏳' },
       { id: 'resultados', name: 'Resultados de la beta', nameEn: 'Beta results',
         description: 'El momento de la verdad, juntas',
-        descriptionEn: 'The moment of truth, together', emoji: '🧪', mayContainPregnancyNews: true },
+        descriptionEn: 'The moment of truth, together', emoji: '🧪', mayContainPregnancyNews: true, sensitive: true },
       { id: 'primer-trimestre', name: 'Primer trimestre', nameEn: 'First trimester',
         description: 'Positivo conseguido: progesterona, ecos y calma',
-        descriptionEn: 'Positive achieved: progesterone, scans and calm', emoji: '👶', mayContainPregnancyNews: true },
+        descriptionEn: 'Positive achieved: progesterone, scans and calm', emoji: '👶', mayContainPregnancyNews: true, sensitive: true },
     ],
   },
   {
@@ -75,10 +81,10 @@ export const forumSections: ForumSection[] = [
         descriptionEn: 'Endometriosis, PCOS, low reserve, male factor…', emoji: '📋' },
       { id: 'interrupciones', name: 'Interrupciones y pérdidas', nameEn: 'Interruptions & loss',
         description: 'Cuando el camino se detiene: cuidado y compañía',
-        descriptionEn: 'When the journey pauses: care and company', emoji: '🕊️' },
+        descriptionEn: 'When the journey pauses: care and company', emoji: '🕊️', sensitive: true },
       { id: 'historias-exito', name: 'Historias de éxito', nameEn: 'Success stories',
         description: 'Positivos reales de usuarias reales',
-        descriptionEn: 'Real positives from real women', emoji: '☀️', mayContainPregnancyNews: true },
+        descriptionEn: 'Real positives from real women', emoji: '☀️', mayContainPregnancyNews: true, sensitive: true },
       { id: 'conectamos', name: '¿Conectamos?', nameEn: 'Let\'s connect?',
         description: 'Desahógate de lo que quieras: series, trabajo, vida… nos conocemos',
         descriptionEn: 'Vent about anything: shows, work, life… let\'s get to know each other', emoji: '☕' },
@@ -105,4 +111,9 @@ export function categoryDescription(c: ForumCategory, locale: string): string {
 
 export function sectionTitle(s: ForumSection, locale: string): string {
   return locale === 'en' ? s.titleEn : s.title;
+}
+
+/** true si la categoría es privada en la web (tras login, sin indexar). */
+export function isSensitiveCategory(categoryId: string): boolean {
+  return forumCategoriesById[categoryId]?.sensitive === true;
 }

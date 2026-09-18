@@ -91,7 +91,8 @@ export async function threadsByCategory(categoryId: string, limit = 40): Promise
   return threads.slice(0, limit);
 }
 
-/** Hilos más recientes de todo el foro (portada). */
+/** Hilos más recientes de todo el foro (portada). Excluye categorías
+ *  sensibles: sus extractos no deben aparecer en páginas públicas. */
 export async function recentThreads(limit = 8): Promise<ThreadSummary[]> {
   const snap = await db().collection(POSTS)
     .where('parent_post_id', '==', null)
@@ -100,7 +101,7 @@ export async function recentThreads(limit = 8): Promise<ThreadSummary[]> {
     .get();
   const threads = snap.docs
     .map((d) => summaryFrom(d.id, d.data()))
-    .filter((t) => forumCategories.some((c) => c.id === t.categoryId));
+    .filter((t) => forumCategories.some((c) => c.id === t.categoryId && !c.sensitive));
   threads.sort((a, b) => (b.createdAt?.getTime() ?? 0) - (a.createdAt?.getTime() ?? 0));
   return threads.slice(0, limit);
 }

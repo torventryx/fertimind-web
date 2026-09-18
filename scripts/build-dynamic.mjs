@@ -60,8 +60,9 @@ const IMAGE = '${IMAGE_BASE}:${TAG}';
   console.log('✓ servicio actualizado y público');
 })().catch(e => { console.error('FALLO', e.response?.status, (e.response?.data?.error?.message || e.message).slice(0, 300)); process.exit(1); });
 `;
-writeFileSync('/tmp/deploy-run-update.js', script);
-execSync('node /tmp/deploy-run-update.js', { stdio: 'inherit' });
+// Dentro del proyecto para que node resuelva google-auth-library de node_modules.
+writeFileSync('scripts/.deploy-run-update.tmp.cjs', script);
+execSync('node scripts/.deploy-run-update.tmp.cjs', { stdio: 'inherit' });
 
 // hosting en modo rewrite
 writeFileSync(

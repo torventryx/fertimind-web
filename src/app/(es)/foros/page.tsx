@@ -36,6 +36,11 @@ export default function ForumsPage() {
                   className="rounded-2xl border border-plum/10 bg-white p-4 transition hover:border-coral/40"
                 >
                   <span className="text-xl">{c.emoji}</span>
+                  {c.sensitive && (
+                    <span className="ml-1.5 align-middle text-xs" title="Espacio privado: requiere sesión">
+                      🔒
+                    </span>
+                  )}
                   <p className="mt-1.5 font-semibold text-plum">{c.name}</p>
                   <p className="mt-0.5 text-xs text-ink/55">{c.description}</p>
                 </Link>

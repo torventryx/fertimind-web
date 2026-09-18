@@ -22,3 +22,8 @@ function getApp(): App {
 export function db(): Firestore {
   return getFirestore(getApp());
 }
+
+/** App de Admin para verificar tokens (auth, Stripe...). */
+export function admin(): App {
+  return getApp();
+}

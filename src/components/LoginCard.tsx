@@ -5,6 +5,18 @@ import { GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from 
 import { auth } from '@/lib/auth';
 import { t, type Locale } from '@/lib/i18n';
 
+/** Redirige a ?from=<ruta misma origen> si venimos de un hilo/categoría,
+ *  si no a Mi cuenta. Así desaparece el bug «inicia sesión otra vez». */
+function redirectTarget(locale: Locale): string {
+  try {
+    const from = new URLSearchParams(window.location.search).get('from');
+    if (from && from.startsWith('/') && !from.startsWith('//')) return from;
+  } catch {
+    /* noop */
+  }
+  return locale === 'en' ? '/en/account' : '/cuenta';
+}
+
 export default function LoginCard({ locale }: { locale: Locale }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -17,7 +29,7 @@ export default function LoginCard({ locale }: { locale: Locale }) {
     setError(null);
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      window.location.href = locale === 'en' ? '/en/account' : '/cuenta';
+      window.location.href = redirectTarget(locale);
     } catch (err) {
       setError((err as Error).message);
     } finally {
@@ -30,7 +42,7 @@ export default function LoginCard({ locale }: { locale: Locale }) {
     setError(null);
     try {
       await signInWithPopup(auth, new GoogleAuthProvider());
-      window.location.href = locale === 'en' ? '/en/account' : '/cuenta';
+      window.location.href = redirectTarget(locale);
     } catch (err) {
       setError((err as Error).message);
     } finally {
@@ -39,7 +51,7 @@ export default function LoginCard({ locale }: { locale: Locale }) {
   }
 
   return (
-    <div className="mx-auto max-w-sm rounded-3xl border border-plum/10 bg-white p-6 shadow-sm">
+    <div className="mx-auto max-w-sm rounded-3xl border border-plum/10 bg-white p-6 fm-shadow-card">
       <h1 className="text-xl font-bold text-plum">{t('login_title', locale)}</h1>
       <p className="mt-2 text-sm text-ink/70">{t('login_body', locale)}</p>
       <button

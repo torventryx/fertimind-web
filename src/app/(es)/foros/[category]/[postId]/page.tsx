@@ -6,6 +6,8 @@ import { SITE, t } from '@/lib/i18n';
 import { forumCategoriesById } from '@/data/taxonomy';
 import { threadWithComments, localizedText } from '@/lib/content';
 import PregnancyGate from '@/components/PregnancyGate';
+import SensitiveThreadLoader from '@/components/SensitiveThreadLoader';
+import CommentSection from '@/components/CommentSection';
 import JsonLd from '@/components/JsonLd';
 
 export const revalidate = 120;
@@ -26,8 +28,19 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const cat = forumCategoriesById[params.category];
+  if (!cat) return {};
+  // Categorías sensibles: ni el título del hilo se filtra al indexado.
+  if (cat.sensitive) {
+    return pageMetadata({
+      locale: 'es',
+      path: `/foros/${cat.id}`,
+      title: `${cat.name} — espacio privado`,
+      description: `Conversaciones privadas de ${cat.name.toLowerCase()}, solo para usuarias con sesión iniciada.`,
+      noIndex: true,
+    });
+  }
   const data = await threadWithComments(params.postId);
-  if (!cat || !data || data.thread.categoryId !== cat.id) return {};
+  if (!data || data.thread.categoryId !== cat.id) return {};
   return pageMetadata({
     locale: 'es',
     path: `/foros/${cat.id}/${params.postId}`,
@@ -47,8 +60,24 @@ function fmtDate(d: Date | null) {
 
 export default async function ThreadPage({ params }: Props) {
   const cat = forumCategoriesById[params.category];
+  if (!cat) notFound();
+
+  // ── Categoría sensible: nada de contenido en el HTML prerenderizado ──
+  if (cat.sensitive) {
+    return (
+      <article className="mx-auto max-w-3xl px-4 py-10">
+        <Link href={`/foros/${cat.id}`} className="text-sm text-ink/50 hover:text-coralAction">
+          ← {cat.name}
+        </Link>
+        <div className="mt-6">
+          <SensitiveThreadLoader postId={params.postId} locale="es" />
+        </div>
+      </article>
+    );
+  }
+
   const data = await threadWithComments(params.postId);
-  if (!cat || !data || data.thread.categoryId !== cat.id) notFound();
+  if (!data || data.thread.categoryId !== cat.id) notFound();
 
   const { thread, comments } = data;
   const body = localizedText(thread.content, thread.translations, 'es');
@@ -107,42 +136,26 @@ export default async function ThreadPage({ params }: Props) {
         </div>
       )}
 
-      <section className="mt-10">
-        <h2 className="text-lg font-bold text-plum">
-          {t('comments_title', 'es')} ({comments.length})
-        </h2>
-        <div className="mt-4 space-y-3">
-          {comments.length === 0 && (
-            <p className="rounded-2xl bg-lilacSoft p-5 text-sm text-ink/60">{t('comments_empty', 'es')}</p>
-          )}
-          {comments.map((c) => {
-            const cBody = localizedText(c.content, c.translations, 'es');
-            return (
-              <div key={c.id} className="rounded-2xl border border-plum/10 bg-white p-4">
-                <p className="text-xs text-ink/50">
-                  <span className="font-semibold text-plum/80">
-                    {c.authorUsername ? `@${c.authorUsername}` : c.authorName}
-                  </span>{' '}
-                  · {fmtDate(c.createdAt)}{' '}
-                  {cBody.translated && (
-                    <span className="ml-1 rounded bg-lilacSoft px-1.5 py-0.5 text-[10px] text-plum/60">
-                      {t('translated_note', 'es')}
-                    </span>
-                  )}
-                </p>
-                <p className="mt-1.5 whitespace-pre-wrap text-[15px] leading-7">{cBody.text}</p>
-              </div>
-            );
-          })}
-        </div>
-      </section>
+      <CommentSection
+        postId={thread.id}
+        categoryId={cat.id}
+        locale="es"
+        initialComments={comments.map((c) => {
+          const cb = localizedText(c.content, c.translations, 'es');
+          return {
+            id: c.id,
+            content: cb.text,
+            authorName: c.authorName,
+            authorUsername: c.authorUsername,
+            createdAt: c.createdAt?.toISOString() ?? null,
+            translated: cb.translated,
+          };
+        })}
+      />
 
-      <div className="mt-10 rounded-2xl border border-dashed border-plum/20 bg-white/60 p-5 text-sm text-ink/60">
-        {t('forum_new_thread_app', 'es')}{' '}
-        <Link href="/login" className="font-semibold text-coralAction">
-          {t('nav_login', 'es')}
-        </Link>
-      </div>
+      <p className="mt-8 rounded-2xl bg-lilacSoft/60 p-4 text-xs leading-5 text-ink/55">
+        {t('forum_new_thread_app', 'es')}
+      </p>
     </article>
   );
 }

@@ -6,9 +6,65 @@
   color-scheme: light;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   @apply bg-cream text-ink antialiased;
+  font-feature-settings: 'ss01' on, 'liga' on;
+  text-rendering: optimizeLegibility;
 }
+
+::selection {
+  background: #8c7bae33;
+}
+
+/* ── Polish moderno ─────────────────────────────────────────────────────── */
+
+.fm-shadow-card {
+  box-shadow:
+    0 1px 2px rgb(69 58 95 / 0.04),
+    0 8px 24px -12px rgb(69 58 95 / 0.12);
+}
+.fm-shadow-lift {
+  box-shadow:
+    0 2px 4px rgb(69 58 95 / 0.05),
+    0 16px 40px -16px rgb(69 58 95 / 0.22);
+}
+
+h1, h2, h3 {
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid #c24d5c;
+  outline-offset: 2px;
+  border-radius: 9999px;
+}
+
+.fm-gradient-text {
+  background: linear-gradient(100deg, #c24d5c 10%, #8c7bae 90%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.fm-hero-blob {
+  background:
+    radial-gradient(42rem 42rem at 85% -10%, #efeaf6 0%, transparent 60%),
+    radial-gradient(36rem 36rem at -10% 110%, #e7f0e9 0%, transparent 55%),
+    linear-gradient(180deg, #faf7f2 0%, #faf7f2 100%);
+}
+
+.fm-noise-line {
+  background-image: linear-gradient(90deg, transparent, rgb(69 58 95 / 0.18), transparent);
+  height: 1px;
+}
+
+/* ── Prose (cursos) ─────────────────────────────────────────────────────── */
 
 .prose-fm {
   @apply text-[15px] leading-7 text-ink;
@@ -29,3 +85,8 @@ body {
 .prose-fm hr { @apply my-6 border-plum/15; }
 .prose-fm input[type='checkbox'] { @apply mr-2 accent-coralAction; }
 .prose-fm li:has(> input[type='checkbox']) { @apply list-none ml-[-1rem]; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}

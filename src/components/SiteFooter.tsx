@@ -5,7 +5,7 @@ export default function SiteFooter({ locale }: { locale: Locale }) {
   const base = locale === 'en' ? '/en' : '';
   return (
     <footer className="mt-16 border-t border-plum/10 bg-lilacSoft/40">
-      <div className="mx-auto grid max-w-6xl gap-8 px-4 py-10 sm:grid-cols-3">
+      <div className="mx-auto grid max-w-6xl gap-8 px-4 py-10 sm:grid-cols-2 lg:grid-cols-4">
         <div>
           <p className="text-lg font-bold text-plum">FertiMind</p>
           <p className="mt-2 text-sm text-ink/70">
@@ -23,7 +23,21 @@ export default function SiteFooter({ locale }: { locale: Locale }) {
           </ul>
         </div>
         <div className="text-sm">
-          <p className="mb-2 font-semibold text-plum">{locale === 'en' ? 'Legal' : 'Legal'}</p>
+          <p className="mb-2 font-semibold text-plum">{locale === 'en' ? 'Get the app' : 'Descarga la app'}</p>
+          <ul className="space-y-1.5 text-ink/75">
+            <li>
+              <a href="https://apps.apple.com/us/app/fertimind/id6751907485" rel="nofollow">
+                 App Store
+              </a>
+            </li>
+            <li>
+              <a href="https://play.google.com/store/apps/details?id=com.fertimind.fiv" rel="nofollow">
+                ▶ Google Play
+              </a>
+            </li>
+            <li className="pt-1.5 text-xs text-ink/50">{locale === 'en' ? 'Free · no ads · es/en' : 'Gratis · sin anuncios · es/en'}</li>
+          </ul>
+          <p className="mb-2 mt-4 font-semibold text-plum">{locale === 'en' ? 'Legal' : 'Legal'}</p>
           <ul className="space-y-1.5 text-ink/75">
             <li><Link href={`${base}/legal/privacidad`}>{t('footer_legal_privacy', locale)}</Link></li>
             <li><Link href={`${base}/legal/terminos`}>{t('footer_legal_terms', locale)}</Link></li>

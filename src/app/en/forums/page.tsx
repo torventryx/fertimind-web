@@ -27,6 +27,11 @@ export default function ForumsEn() {
               {section.categories.map((c) => (
                 <Link key={c.id} href={`/en/forums/${c.id}`} className="rounded-2xl border border-plum/10 bg-white p-4 transition hover:border-coral/40">
                   <span className="text-xl">{c.emoji}</span>
+                  {c.sensitive && (
+                    <span className="ml-1.5 align-middle text-xs" title="Private space: sign-in required">
+                      🔒
+                    </span>
+                  )}
                   <p className="mt-1.5 font-semibold text-plum">{c.nameEn}</p>
                   <p className="mt-0.5 text-xs text-ink/55">{c.descriptionEn}</p>
                 </Link>

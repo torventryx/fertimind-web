@@ -14,6 +14,7 @@ export default function SiteHeader({ locale }: { locale: Locale }) {
     { href: locale === 'en' ? '/en/forums' : '/foros', label: t('nav_forum', locale) },
     { href: locale === 'en' ? '/en/courses' : '/cursos', label: t('nav_courses', locale) },
     { href: locale === 'en' ? '/en/clinics' : '/clinicas', label: t('nav_clinics', locale) },
+    { href: locale === 'en' ? '/en#download' : '/#descargar', label: t('nav_download', locale) },
   ];
   const other = locale === 'en' ? { href: '/', label: 'ES' } : { href: '/en', label: 'EN' };
 
