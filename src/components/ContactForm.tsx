@@ -3,7 +3,7 @@
 import { useState } from 'react';
 
 /**
- * Formulario de contacto: escribe en Firestore (contact_messages) vía SDK
+ * Formulario de contacto: escribe en Firestore (contact_requests, colección con reglas
  * cliente si las reglas lo permiten; si falla, muestra el email de soporte.
  */
 export default function ContactForm({ locale }: { locale: 'es' | 'en' }) {
@@ -19,7 +19,7 @@ export default function ContactForm({ locale }: { locale: 'es' | 'en' }) {
       const { getFirestore, collection, addDoc, serverTimestamp } = await import('firebase/firestore');
       const { firebaseClientApp } = await import('@/lib/client-firebase');
       const db = getFirestore(firebaseClientApp());
-      await addDoc(collection(db, 'contact_messages'), {
+      await addDoc(collection(db, 'contact_requests'), {
         name,
         email,
         message,
