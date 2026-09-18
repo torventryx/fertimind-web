@@ -1,12 +1,13 @@
 'use client';
 
 import { useState } from 'react';
-import { t, type Locale } from '@/lib/i18n';
+import Link from 'next/link';
+import { t, lp, type Locale } from '@/lib/i18n';
 
 /**
- * Paywall del pago único (7,99 €). Llama a la Cloud Function
- * createStripeCheckout; si Stripe aún no está configurado muestra un
- * aviso y remite a la app (RevenueCat sigue siendo el paywall nativo).
+ * Paywall del pago único (7,99 €). Crea una sesión de Stripe Checkout vía
+ * /api/stripe/checkout; los errores muestran mensajes propios del pago
+ * (nunca el aviso antiguo «se activará en breve» ni textos de foros).
  */
 export default function Paywall({ locale, compact = false }: { locale: Locale; compact?: boolean }) {
   const [busy, setBusy] = useState(false);
@@ -18,7 +19,9 @@ export default function Paywall({ locale, compact = false }: { locale: Locale; c
     try {
       const idToken = await (await import('@/lib/auth')).auth.currentUser?.getIdToken();
       if (!idToken) {
-        window.location.href = locale === 'en' ? '/en/login' : '/login';
+        window.location.href = `${lp(locale)}/login?from=${encodeURIComponent(
+          typeof window !== 'undefined' ? window.location.pathname : '',
+        )}`;
         return;
       }
       const res = await fetch('/api/stripe/checkout', {
@@ -34,9 +37,9 @@ export default function Paywall({ locale, compact = false }: { locale: Locale; c
         window.location.href = data.url;
         return;
       }
-      setError(res.status === 401 ? t('forum_new_thread_app', locale) : t('pay_stripe_soon', locale));
+      setError(res.status === 401 ? t('pay_error_session', locale) : t('pay_error_generic', locale));
     } catch {
-      setError(t('pay_stripe_soon', locale));
+      setError(t('pay_error_generic', locale));
     } finally {
       setBusy(false);
     }

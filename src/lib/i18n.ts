@@ -93,9 +93,13 @@ const dict: Dict = {
   login_google: { es: 'Continuar con Google', en: 'Continue with Google' },
 
   pay_once: { es: 'Pago único 7,99 €', en: 'One-time payment €7.99' },
-  pay_stripe_soon: {
-    es: 'El pago web se activará en breve. Mientras tanto, puedes desbloquearlo desde la app.',
-    en: 'Web checkout is coming very soon. Meanwhile, you can unlock from the app.',
+  pay_error_generic: {
+    es: 'No hemos podido iniciar el pago. Inténtalo de nuevo en unos segundos.',
+    en: 'We could not start the payment. Please try again in a few seconds.',
+  },
+  pay_error_session: {
+    es: 'Tu sesión ha caducado. Inicia sesión de nuevo y vuelve a intentarlo.',
+    en: 'Your session has expired. Please sign in again and retry.',
   },
 
   footer_legal_privacy: { es: 'Política de privacidad', en: 'Privacy policy' },

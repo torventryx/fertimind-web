@@ -172,7 +172,9 @@ export default function AccountCard({ locale }: { locale: Locale }) {
                 : ''}
             </p>
           </div>
-        ) : profile.paidAccess === false ? (
+        ) : (
+          // Sin paid_access (campo ausente) también es "sin premium": misma
+          // tarjeta de mejora. Nunca más el aviso "se activará en breve".
           <div className="mt-2 rounded-2xl bg-lilacSoft p-4">
             <p className="text-sm text-ink/70">{t('courses_paywall_body', locale)}</p>
             <Link
@@ -182,8 +184,6 @@ export default function AccountCard({ locale }: { locale: Locale }) {
               {t('courses_unlock', locale)}
             </Link>
           </div>
-        ) : (
-          <p className="text-sm text-ink/60">{t('pay_stripe_soon', locale)}</p>
         )}
         </div>
         {profile.paidAccess !== true && (
