@@ -1,0 +1,10 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appID": "6DCN68PP6T.com.fertimind.fiv",
+        "paths": [ "/verifyEmail", "/resetPassword" ]
+      }
+    ]
+  }
+}

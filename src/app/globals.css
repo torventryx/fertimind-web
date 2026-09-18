@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+body {
+  @apply bg-cream text-ink antialiased;
+}
+
+.prose-fm {
+  @apply text-[15px] leading-7 text-ink;
+}
+.prose-fm h1 { @apply mt-6 mb-3 text-2xl font-bold text-plum; }
+.prose-fm h2 { @apply mt-6 mb-2 text-xl font-semibold text-plum; }
+.prose-fm h3 { @apply mt-5 mb-2 text-lg font-semibold text-plum; }
+.prose-fm p { @apply my-3; }
+.prose-fm ul { @apply my-3 list-disc pl-6; }
+.prose-fm ol { @apply my-3 list-decimal pl-6; }
+.prose-fm li { @apply my-1; }
+.prose-fm a { @apply text-coralAction underline decoration-coral/50 underline-offset-2; }
+.prose-fm blockquote { @apply my-4 border-l-4 border-lilac/60 bg-lilacSoft/50 px-4 py-2 italic; }
+.prose-fm table { @apply my-4 w-full border-collapse text-sm; }
+.prose-fm th { @apply border border-plum/20 bg-lilacSoft px-2 py-1 text-left font-semibold; }
+.prose-fm td { @apply border border-plum/20 px-2 py-1; }
+.prose-fm code { @apply rounded bg-lilacSoft px-1 text-[13px]; }
+.prose-fm hr { @apply my-6 border-plum/15; }
+.prose-fm input[type='checkbox'] { @apply mr-2 accent-coralAction; }
+.prose-fm li:has(> input[type='checkbox']) { @apply list-none ml-[-1rem]; }

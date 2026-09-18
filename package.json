@@ -1,0 +1,34 @@
+{
+  "name": "fertimind-web",
+  "version": "1.0.0",
+  "private": true,
+  "description": "FertiMind web \u2014 foro, cursos y directorio de cl\u00ednicas de reproducci\u00f3n asistida (SSR, SEO y LLM-first)",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "build:static": "node scripts/build-static.mjs",
+    "start": "next start",
+    "deploy:static": "node scripts/build-static.mjs && firebase deploy --only hosting",
+    "deploy:dynamic": "node scripts/build-dynamic.mjs",
+    "deploy": "npm run deploy:static"
+  },
+  "dependencies": {
+    "firebase": "^10.14.1",
+    "firebase-admin": "^12.7.0",
+    "next": "^14.2.15",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-markdown": "^9.0.1",
+    "remark-gfm": "^4.0.0",
+    "stripe": "^22.6.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20.16.10",
+    "@types/react": "^18.3.11",
+    "@types/react-dom": "^18.3.0",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.47",
+    "tailwindcss": "^3.4.13",
+    "typescript": "^5.6.2"
+  }
+}

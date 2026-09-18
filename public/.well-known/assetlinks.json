@@ -1,0 +1,16 @@
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls",
+      "delegate_permission/common.get_login_creds"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.fertimind.fiv",
+      "sha256_cert_fingerprints": [
+        "48:9d:52:37:4a:ce:6c:cf:ec:ed:45:d5:93:4b:dc:4d:9e:01:60:fa:7b:30:a5:67:4b:4b:09:69:c6:fc:a8:5d",
+        "82:9F:47:9F:82:B8:4D:26:77:9B:20:37:58:72:FC:67:3A:41:F8:87:9D:FA:47:40:44:4C:35:D7:BD:CB:DE:B3"
+      ]
+    }
+  }
+]
