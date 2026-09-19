@@ -1,11 +1,12 @@
 import Link from 'next/link';
 import { t, type Locale } from '@/lib/i18n';
+import NewsletterForm from '@/components/NewsletterForm';
 
 export default function SiteFooter({ locale }: { locale: Locale }) {
   const base = locale === 'en' ? '/en' : '';
   return (
     <footer className="mt-16 border-t border-plum/10 bg-lilacSoft/40">
-      <div className="mx-auto grid max-w-6xl gap-8 px-4 py-10 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="mx-auto grid max-w-6xl gap-8 px-4 py-10 sm:grid-cols-2 lg:grid-cols-5">
         <div>
           <p className="text-lg font-bold text-plum">FertiMind</p>
           <p className="mt-2 text-sm text-ink/70">
@@ -46,6 +47,9 @@ export default function SiteFooter({ locale }: { locale: Locale }) {
             <li><Link href={`${base}${locale === 'en' ? '/contact' : '/contacto'}`}>{t('footer_contact', locale)}</Link></li>
             <li><Link href={`${base}${locale === 'en' ? '/delete-account' : '/eliminar-cuenta'}`}>{t('footer_delete', locale)}</Link></li>
           </ul>
+        </div>
+        <div className="text-sm">
+          <NewsletterForm locale={locale} />
         </div>
       </div>
       <div className="border-t border-plum/10 px-4 py-4">
