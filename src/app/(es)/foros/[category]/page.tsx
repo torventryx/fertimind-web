@@ -7,6 +7,7 @@ import { forumCategoriesById } from '@/data/taxonomy';
 import { threadsByCategory } from '@/lib/content';
 import PostTeaser from '@/components/PostTeaser';
 import NewThreadNote from '@/components/NewThreadNote';
+import NewThreadButton from '@/components/NewThreadButton';
 import JsonLd from '@/components/JsonLd';
 
 export const revalidate = 300;
@@ -65,6 +66,9 @@ export default async function CategoryPage({ params }: Props) {
         )}
       </h1>
       <p className="mt-1.5 text-ink/65">{cat.description}</p>
+      <p className="mt-1 text-sm font-semibold text-coralAction">
+        {threads.length} {threads.length === 1 ? 'conversación' : 'conversaciones'}
+      </p>
 
       {cat.sensitive && (
         <div className="mt-5 rounded-2xl border border-gold/30 bg-goldSoft/60 p-4 text-sm leading-6 text-ink/75">
@@ -95,6 +99,10 @@ export default async function CategoryPage({ params }: Props) {
             locked={cat.sensitive === true}
           />
         ))}
+      </div>
+
+      <div className="mt-8">
+        <NewThreadButton categoryId={cat.id} locale="es" />
       </div>
 
       <NewThreadNote locale="es" />

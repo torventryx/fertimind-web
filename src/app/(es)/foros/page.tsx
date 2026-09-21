@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import { pageMetadata, breadcrumbJsonLd } from '@/lib/seo';
 import { SITE, t } from '@/lib/i18n';
 import { forumSections, sectionTitle } from '@/data/taxonomy';
+import { getCategoryThreadCounts } from '@/lib/content';
 import JsonLd from '@/components/JsonLd';
 
 export const revalidate = 1800;
@@ -15,7 +16,8 @@ export const metadata: Metadata = pageMetadata({
     '16 foros por etapa y tratamiento: estimulación, punción, betaespera, ovodonación, DGP, historias de éxito y más. Comunidad libre y de mujeres.',
 });
 
-export default function ForumsPage() {
+export default async function ForumsPage() {
+  const counts = await getCategoryThreadCounts().catch(() => ({}) as Record<string, number>);
   return (
     <div className="mx-auto max-w-6xl px-4 py-10">
       <JsonLd
@@ -43,6 +45,9 @@ export default function ForumsPage() {
                   )}
                   <p className="mt-1.5 font-semibold text-plum">{c.name}</p>
                   <p className="mt-0.5 text-xs text-ink/55">{c.description}</p>
+                  <p className="mt-1.5 text-xs font-semibold text-coralAction">
+                    {counts[c.id] ?? 0} {counts[c.id] === 1 ? 'conversación' : 'conversaciones'}
+                  </p>
                 </Link>
               ))}
             </div>

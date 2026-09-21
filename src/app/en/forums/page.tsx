@@ -2,6 +2,7 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 import { pageMetadata } from '@/lib/seo';
 import { forumSections } from '@/data/taxonomy';
+import { getCategoryThreadCounts } from '@/lib/content';
 
 export const revalidate = 1800;
 
@@ -12,7 +13,8 @@ export const metadata: Metadata = pageMetadata({
   description: '16 forums by stage and treatment: stimulation, two-week wait, egg donation, success stories and more.',
 });
 
-export default function ForumsEn() {
+export default async function ForumsEn() {
+  const counts = await getCategoryThreadCounts().catch(() => ({}) as Record<string, number>);
   return (
     <div className="mx-auto max-w-6xl px-4 py-10" lang="en">
       <h1 className="text-3xl font-bold text-plum">Fertility forums</h1>
@@ -34,6 +36,9 @@ export default function ForumsEn() {
                   )}
                   <p className="mt-1.5 font-semibold text-plum">{c.nameEn}</p>
                   <p className="mt-0.5 text-xs text-ink/55">{c.descriptionEn}</p>
+                  <p className="mt-1.5 text-xs font-semibold text-coralAction">
+                    {counts[c.id] ?? 0} {counts[c.id] === 1 ? 'conversation' : 'conversations'}
+                  </p>
                 </Link>
               ))}
             </div>

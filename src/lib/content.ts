@@ -311,3 +311,18 @@ export async function threadsMentioning(text: string, limit = 5): Promise<Thread
   threads.sort((a, b) => (b.createdAt?.getTime() ?? 0) - (a.createdAt?.getTime() ?? 0));
   return threads.slice(0, limit);
 }
+
+/** Conversaciones vivas por categoría (para los contadores del foro). */
+export async function getCategoryThreadCounts(): Promise<Record<string, number>> {
+  const snap = await db().collection(POSTS)
+    .where('parent_post_id', '==', null)
+    .where('is_archive', '==', false)
+    .where('is_deleted', '==', false)
+    .get();
+  const counts: Record<string, number> = {};
+  snap.docs.forEach((d) => {
+    const cat = (d.data()['category_id'] as string) || 'general';
+    counts[cat] = (counts[cat] ?? 0) + 1;
+  });
+  return counts;
+}

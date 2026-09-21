@@ -6,6 +6,7 @@ import { forumCategoriesById } from '@/data/taxonomy';
 import { threadsByCategory } from '@/lib/content';
 import PostTeaser from '@/components/PostTeaser';
 import NewThreadNote from '@/components/NewThreadNote';
+import NewThreadButton from '@/components/NewThreadButton';
 
 export const revalidate = 300;
 
@@ -44,6 +45,9 @@ export default async function CategoryEn({ params }: Props) {
         )}
       </h1>
       <p className="mt-1.5 text-ink/65">{cat.descriptionEn}</p>
+      <p className="mt-1 text-sm font-semibold text-coralAction">
+        {threads.length} {threads.length === 1 ? 'conversation' : 'conversations'}
+      </p>
       <p className="mt-1 text-xs text-ink/45">Threads are mostly written in Spanish.</p>
 
       {cat.sensitive && (
@@ -62,6 +66,10 @@ export default async function CategoryEn({ params }: Props) {
             date={th.createdAt?.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' }) || ''}
             commentCount={th.commentCount} pinned={th.isWeeklyThread} locked={cat.sensitive === true} />
         ))}
+      </div>
+
+      <div className="mt-8">
+        <NewThreadButton categoryId={cat.id} locale="en" />
       </div>
 
       <NewThreadNote locale="en" />
