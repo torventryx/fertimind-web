@@ -38,7 +38,8 @@ Variables en `.env` (ver `.env.example`): `NEXT_PUBLIC_SITE_URL`,
 
 ## Activar el backend dinámico (Stripe + premium en web)
 
-La SA de deploy (`master@fivmind-c7897.iam.gserviceaccount.com`) tiene
+La SA de deploy (`master@<proyecto>.iam.gserviceaccount.com`, ver IAM en
+GCP Console) tiene
 `roles/editor`, que no permite publicar endpoints (setIamPolicy). Un
 Owner del proyecto debe concederle una vez
 **`roles/cloudfunctions.admin`** en
