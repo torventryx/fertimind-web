@@ -125,7 +125,7 @@ const dict: Dict = {
     en: 'women supporting each other through fertility and pregnancy',
   },
   strip_thanks: {
-    es: 'gratis gracias a nuestras apoyadoras 🤍',
+    es: 'gratis gracias a quienes nos apoyáis 🤍',
     en: 'free thanks to our supporters 🤍',
   },
   strip_support_btn: { es: '🤍 Apoyar', en: '🤍 Support us' },
