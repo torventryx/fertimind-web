@@ -15,6 +15,7 @@ export default function CookieConsent({ locale }: { locale: Locale }) {
       <button
         onClick={() => {
           localStorage.setItem('fm-cookie-consent', '1');
+          window.dispatchEvent(new Event('fm-consent'));
           setShow(false);
         }}
         className="mt-3 w-full rounded-full bg-plum px-4 py-2 text-sm font-semibold text-white"

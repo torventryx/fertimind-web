@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 import { Poppins } from 'next/font/google';
 import './globals.css';
+import GaScript from '@/components/GaScript';
 import { SITE } from '@/lib/i18n';
 
 // Poppins real, autoalojada por next/font (sin FOUT, sin peticiones externas en runtime).
@@ -29,7 +30,10 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="es" className={poppins.variable}>
-      <body>{children}</body>
+      <body>
+        {children}
+        <GaScript />
+      </body>
     </html>
   );
 }
