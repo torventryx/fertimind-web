@@ -119,6 +119,20 @@ const dict: Dict = {
   cookie_ok: { es: 'Aceptar', en: 'Accept' },
 
   translated_note: { es: 'Traducido automáticamente', en: 'Automatically translated' },
+
+  strip_members_label: {
+    es: 'mujeres acompañándose en fertilidad y embarazo',
+    en: 'women supporting each other through fertility and pregnancy',
+  },
+  strip_thanks: {
+    es: 'gratis gracias a nuestras apoyadoras 🤍',
+    en: 'free thanks to our supporters 🤍',
+  },
+  strip_support_btn: { es: '🤍 Apoyar', en: '🤍 Support us' },
+  strip_premium_btn: {
+    es: 'Premium · 7,99 € para siempre',
+    en: 'Premium · €7.99 forever',
+  },
 };
 
 export function t(key: string, locale: Locale = 'es'): string {

@@ -1,16 +1,20 @@
 import SiteHeader from '@/components/SiteHeader';
 import SiteFooter from '@/components/SiteFooter';
+import CommunityStrip from '@/components/CommunityStrip';
 import CookieConsent from '@/components/CookieConsent';
 import JsonLd from '@/components/JsonLd';
 import { organizationJsonLd, websiteJsonLd } from '@/lib/seo';
+import { getCommunitySize } from '@/lib/community-size';
 import type { Locale } from '@/lib/i18n';
 
-export default function EnLayout({ children }: { children: React.ReactNode }) {
+export default async function EnLayout({ children }: { children: React.ReactNode }) {
   const locale: Locale = 'en';
+  const members = await getCommunitySize();
   return (
     <>
       <JsonLd data={[organizationJsonLd(), websiteJsonLd()]} />
       <SiteHeader locale={locale} />
+      <CommunityStrip locale={locale} members={members} />
       <main lang="en" className="min-h-[70vh]">{children}</main>
       <SiteFooter locale={locale} />
       <CookieConsent locale={locale} />
