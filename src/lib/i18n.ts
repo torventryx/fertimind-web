@@ -63,6 +63,8 @@ const dict: Dict = {
   courses_premium: { es: 'Premium', en: 'Premium' },
   courses_free: { es: 'Gratis', en: 'Free' },
   courses_modules: { es: 'módulos', en: 'modules' },
+  courses_tab_ra: { es: 'Reproducción asistida', en: 'Assisted reproduction' },
+  courses_tab_embarazo: { es: 'Embarazo', en: 'Pregnancy' },
   courses_lessons: { es: 'lecciones', en: 'lessons' },
   courses_minutes: { es: 'min', en: 'min' },
   courses_unlock: { es: 'Desbloquear todo por 7,99 € (pago único)', en: 'Unlock everything for €7.99 (one-time)' },

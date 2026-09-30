@@ -186,6 +186,7 @@ export interface CourseDetail {
   thumbnailUrl: string | null;
   level: string | null;
   category: string | null;
+  track: 'embarazo' | 'ra';
   instructorName: string | null;
   modules: {
     id: string;
@@ -235,6 +236,8 @@ export async function listCourses(): Promise<CourseDetail[]> {
       thumbnailUrl: (c['thumbnail_url'] as string) || null,
       level: (c['level'] as string) || null,
       category: (c['category'] as string) || null,
+      track: (c['track'] as 'embarazo' | 'ra') ||
+        ((c['category'] as string) === 'Embarazo' ? 'embarazo' : 'ra'),
       instructorName: (c['instructor_name'] as string) || null,
       modules,
     });

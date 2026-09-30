@@ -77,6 +77,62 @@ export const clinics: Clinic[] = [
     aboutEn: 'Fertility clinic in Madrid\'s Chamartín district, one of Spain\'s assisted reproduction pioneers, with a strong focus on international patients.',
     tags: ['ovodonacion', 'general'],
   },
+  {
+    slug: 'ur-vistahermosa', name: 'UR Vistahermosa', nameEn: 'UR Vistahermosa',
+    city: 'Alicante', cityEn: 'Alicante', website: 'https://urvistahermosa.com',
+    about: 'Centro histórico del grupo UR en Alicante con más de 40 años de experiencia en reproducción asistida y unidad de medicina fetal propia.',
+    aboutEn: 'Historic UR group centre in Alicante with over 40 years of experience in assisted reproduction and its own fetal medicine unit.',
+    tags: ['general', 'ovodonacion'],
+  },
+  {
+    slug: 'imfer-murcia', name: 'IMFER Murcia', nameEn: 'IMFER Murcia',
+    city: 'Murcia', cityEn: 'Murcia', website: 'https://imfer.com',
+    about: 'Instituto Murciano de Fertilidad, uno de los centros pioneros de la Región de Murcia, con laboratorio propio y más de 25 años de trayectoria.',
+    aboutEn: 'The Murcian Fertility Institute, one of the pioneering centres in the Region of Murcia, with its own laboratory and over 25 years of history.',
+    tags: ['general', 'preservacion'],
+  },
+  {
+    slug: 'tahe-fertilidad', name: 'Tahe Fertilidad', nameEn: 'Tahe Fertilidad',
+    city: 'Murcia', cityEn: 'Murcia', website: 'https://tahefertilidad.com',
+    about: 'Unidad de reproducción asistida de la Fundación Tahe en Murcia, conocida por su trato cercano y su trabajo en infertilidad femenina y masculina.',
+    aboutEn: 'Assisted reproduction unit of the Tahe Foundation in Murcia, known for its close care and work on female and male infertility.',
+    tags: ['general', 'ovodonacion'],
+  },
+  {
+    slug: 'vida-fertility', name: 'Vida Fertility Institute', nameEn: 'Vida Fertility Institute',
+    city: 'Madrid', cityEn: 'Madrid', website: 'https://vidafertility.com',
+    about: 'Clínica de fertilidad madrileña de reciente creación que se ha situado entre las mejor valoradas de España, con laboratorio propio y ciclos muy personalizados.',
+    aboutEn: 'Recently founded Madrid fertility clinic that has become one of the best rated in Spain, with its own laboratory and highly personalised cycles.',
+    tags: ['general', 'dgp'],
+  },
+  {
+    slug: 'ivi-mallorca', name: 'IVI Mallorca', nameEn: 'IVI Mallorca',
+    city: 'Palma de Mallorca', cityEn: 'Palma de Mallorca', website: 'https://ivi.es/clinicas/mallorca/',
+    about: 'Centro del grupo IVI RMA en Palma con FIV, inseminación artificial, ovodonación y preservación de la fertilidad para las pacientes de Baleares.',
+    aboutEn: 'IVI RMA group centre in Palma offering IVF, artificial insemination, egg donation and fertility preservation for patients in the Balearic Islands.',
+    tags: ['general', 'ovodonacion'],
+  },
+  {
+    slug: 'ivi-las-palmas', name: 'IVI Las Palmas', nameEn: 'IVI Las Palmas',
+    city: 'Las Palmas de Gran Canaria', cityEn: 'Las Palmas de Gran Canaria', website: 'https://ivi.es/clinicas/las-palmas/',
+    about: 'Clínica del grupo IVI RMA en Gran Canaria: diagnóstico de fertilidad, FIV y ovodonación sin salir de las islas.',
+    aboutEn: 'IVI RMA group clinic in Gran Canaria: fertility diagnostics, IVF and egg donation without leaving the islands.',
+    tags: ['general', 'ovodonacion'],
+  },
+  {
+    slug: 'ivi-tenerife', name: 'IVI Tenerife', nameEn: 'IVI Tenerife',
+    city: 'Santa Cruz de Tenerife', cityEn: 'Santa Cruz de Tenerife', website: 'https://ivi.es',
+    about: 'Centro del grupo IVI RMA en Tenerife con tratamientos de reproducción asistida completa y equipo multidisciplinar.',
+    aboutEn: 'IVI RMA group centre in Tenerife with full assisted reproduction treatments and a multidisciplinary team.',
+    tags: ['general', 'ia'],
+  },
+  {
+    slug: 'instituto-bernabeu-mallorca', name: 'Instituto Bernabeu Mallorca', nameEn: 'Instituto Bernabeu Mallorca',
+    city: 'Palma de Mallorca', cityEn: 'Palma de Mallorca', website: 'https://www.institutobernabeu.com',
+    about: 'Centro del Instituto Bernabeu en Palma: medicina reproductiva de alta complejidad, ovodonación y unidad de medicina fetal.',
+    aboutEn: 'Instituto Bernabeu centre in Palma: high-complexity reproductive medicine, egg donation and a fetal medicine unit.',
+    tags: ['general', 'ovodonacion'],
+  },
 ];
 
 export const clinicsBySlug: Record<string, Clinic> = Object.fromEntries(
